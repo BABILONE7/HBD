@@ -18,5 +18,10 @@ At the letter stage, choose exactly four image files to preview them in the
 slideshow. The selected photos stay in the current browser tab and are not
 uploaded to the server.
 
-The birthday music attempts to autoplay on YouTube. Browser autoplay settings
-may block playback; use the YouTube link on the letter page as a fallback.
+The birthday music attempts to autoplay as a looping YouTube embed from the
+start of the game until the candles are blown out. The browser must be online
+to load it. Autoplay settings may block playback; use the music button in the
+header to show the YouTube player, then press its play control.
+
+After blowing out the candles, the local video at `video/01.mp4` plays. The
+letter stage becomes available after the video finishes.

@@ -21,7 +21,7 @@
         <span class="brand-mark">♡</span>
         <span>just for you</span>
       </a>
-      <span class="top-note">a little birthday surprise <span>✦</span></span>
+      <button class="top-note" id="music-button" type="button">♫ เพลงไม่เล่น? เปิดเครื่องเล่น</button>
     </header>
 
     <nav class="progress" aria-label="ความคืบหน้าของเกม">
@@ -38,7 +38,7 @@
       <div class="stage-heading">
         <span class="eyebrow"><span class="sparkle">✦</span> little birthday game · 01</span>
         <h1 id="stage-one-title">กุญแจดอกนี้…<br><em>เป็นของวันไหนนะ?</em></h1>
-        <p>ตั้งวันที่ให้ตรงกับวันเกิดของคนพิเศษ แล้วกุญแจจะเปิดออกเอง ♡</p>
+        <p>ตั้งวันที่ให้ตรงกับวันเกิด แล้วกุญแจจะเปิด♡</p>
       </div>
       <div class="unlock-card">
         <div class="lock-illustration" aria-hidden="true">
@@ -68,7 +68,7 @@
           </div>
           <p class="hint-line">กรอกวัน เดือน และปีเกิดของเธอ</p>
           <button class="button button-primary" id="unlock-button" type="button">
-            <span>ลองไขกุญแจ</span><span class="button-arrow">↗</span>
+            <span>ลองไขกุญแจดู</span><span class="button-arrow">↗</span>
           </button>
           <p class="feedback" id="date-feedback" aria-live="polite"></p>
         </div>
@@ -138,8 +138,8 @@
     <section class="screen" id="stage-3" aria-labelledby="stage-three-title">
       <div class="stage-heading">
         <span class="eyebrow"><span class="sparkle">✦</span> little birthday game · 03</span>
-        <h1 id="stage-three-title">หลับตาแล้วขอพร <em>นะคนดี</em></h1>
-        <p>เทียนทั้ง 21 เล่มพร้อมแล้ว ขอพรในใจของเธอได้เลย ✨</p>
+        <h1 id="stage-three-title">หลับตาแล้วขอพร <em>นะที่รัก</em></h1>
+        <p>เทียนทั้ง 21 เล่มพร้อมแล้ว ขอพรในใจของเธอได้เลยค้าบ ✨</p>
       </div>
       <div class="wish-card">
         <div class="wish-glow" aria-hidden="true"></div>
@@ -149,12 +149,23 @@
         </div>
         <div class="wish-copy">
           <span class="eyebrow">make a little wish</span>
-          <h2>กรุณาอธิษฐานก่อน<br><em>ค่อยเป่าเทียน</em></h2>
+          <h2>กรุณาอธิษฐานก่อนค้าบ<br><em>ค่อยเป่าเทียน</em></h2>
           <p id="wish-countdown">ค่อย ๆ ขอพรนะ…</p>
           <button class="button button-primary hidden" id="blow-button" type="button">
             <span>เป่าเทียนเลย</span><span class="button-arrow">✧</span>
           </button>
         </div>
+      </div>
+      <div class="birthday-video-screen hidden" id="birthday-video-screen">
+        <h2>วิดีโอพิเศษสำหรับเธอ ♡</h2>
+        <video id="birthday-video" controls playsinline preload="auto" aria-label="วิดีโอพิเศษหลังเป่าเทียน">
+          <source src="video/01.mp4" type="video/mp4">
+          เบราว์เซอร์นี้ไม่รองรับการเล่นวิดีโอ
+        </video>
+        <p id="video-message" aria-live="polite">กำลังเล่นวิดีโอ…</p>
+        <button class="button button-primary hidden" id="video-continue" type="button">
+          <span>ถัดไป</span><span class="button-arrow">↗</span>
+        </button>
       </div>
     </section>
 
@@ -173,7 +184,7 @@
           <div class="envelope-seal">♡</div>
         </div>
         <p>ข้างในมีคำอวยพรและรูปความทรงจำของเราอยู่ ♡</p>
-        <button class="button button-primary" id="open-letter" type="button">เปิดซองจดหมาย <span class="button-arrow">♡</span></button>
+        <button class="button button-primary" id="open-letter" type="button">เปิดซองจดหมายสิค้าบ <span class="button-arrow">♡</span></button>
       </div>
       <div class="letter-card hidden" id="letter-card">
         <div class="memory-panel">
@@ -199,22 +210,20 @@
         <article class="letter-copy">
           <div class="letter-topline"><span>TO MY FAVORITE PERSON</span><span>♡</span></div>
           <div class="letter-seal" aria-hidden="true">♡</div>
-          <h2>สุขสันต์วันเกิด<br><em>นะคนดีของเค้า</em></h2>
-          <p>แม้ปีนี้เราจะไม่ได้อยู่ฉลองด้วยกันใกล้ๆ แต่ความคิดถึงและรักของเค้าก็เดินทางไปอยู่ข้างๆ เธอเสมอ ขอบคุณที่อดทนและจับมือผ่านความห่างไกลมาด้วยกัน ขอให้เธอมีความสุขมากๆ มีรอยยิ้มในทุกๆ วัน พักผ่อนเยอะๆ และดูแลตัวเองดีๆ นะ อยากให้รู้ว่าไม่ว่าจะไกลกันแค่ไหน เธอคือความสบายใจและเป็นของขวัญที่ดีที่สุดในชีวิตเขาเสมอ รอวันจะได้กลับไปกอดและฉลองด้วยกันนะ รักเธอนะครับ ❤️</p>
-          <div class="letter-signoff">รักเธอเสมอ <span>♡</span></div>
+          <h2>สุขสันต์วันเกิด<br><em>นะค้าบที่รัก...</em></h2>
+          <p>ขอบคุณที่อดทนและจับมือกันมาตลอดจนถึงตอนนี้นะ ขอให้เธอมีความสุขมากๆ มีรอยยิ้มในทุกๆ วัน พักผ่อนเยอะๆ และดูแลตัวเองดีๆ นะ ปีนี้ถึงเราจะไม่ได้อยู่ฉลองด้วยกัน..แต่ความคิดถึงและรักของเค้าก็จะอยู่ข้างๆ เธอเสมอนะ  อยากให้เธอรู้ว่า..ไม่ว่าจะไกลกันแค่ไหน เธอคือความสบายใจ และเป็นของขวัญที่ดีที่สุดในชีวิตเค้าเสมอ รอวันจะได้กลับไปกอดเธอ และไปเที่ยวฉลองด้วยกันนะ รักเธอนะครับ My LOVE❤️</p>
+          <div class="letter-signoff">TOEY <span>♡</span></div>
         </article>
-      </div>
-      <div class="music-player hidden" id="music-player">
-        <span class="music-icon" aria-hidden="true">♫</span>
-        <div><strong>เพลงของเรา</strong><small>ถ้าเพลงไม่เล่นอัตโนมัติ กดเปิดบน YouTube ได้เลย</small></div>
-        <a class="music-button" id="music-button" href="https://www.youtube.com/watch?v=ULQVcDUjvM&amp;list=RDULQVcDUjvM&amp;start_radio=1" target="_blank" rel="noopener noreferrer">เปิดบน YouTube ♫</a>
-        <iframe id="music-frame" title="เพลงประกอบวันเกิด" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
       <div class="ending-note hidden" id="ending-note"><span>made with</span> <span>♡</span> <span>just for you</span></div>
     </section>
 
     <footer class="footer-note"><span>♡</span> made with a little extra love <span>♡</span></footer>
   </main>
+  <div class="music-fallback hidden" id="music-fallback">
+    <iframe id="music-frame" title="เพลงพื้นหลังจาก YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    <button id="music-close" type="button">ซ่อนเครื่องเล่น</button>
+  </div>
 
   <div class="birthday-backdrop hidden" id="birthday-backdrop" role="dialog" aria-modal="true" aria-labelledby="birthday-title">
     <div class="birthday-reveal" aria-live="polite">

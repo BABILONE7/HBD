@@ -7,6 +7,7 @@ let toastTimer;
 let candleCount = 0;
 let photos = [];
 let currentPhoto = 0;
+let musicStopped = false;
 const candleSlots = [
   [27, 27], [34.7, 27], [42.3, 27], [50, 27], [57.7, 27], [65.3, 27], [73, 27],
   [19, 36], [29.3, 36], [39.7, 36], [50, 36], [60.3, 36], [70.7, 36], [81, 36],
@@ -33,16 +34,57 @@ function showStage(stage) {
   });
   progressFill.style.width = `${((stage - 1) / (progressSteps.length - 1)) * 100}%`;
   window.scrollTo({ top: 0, behavior: "smooth" });
-  if (stage === 4) startMusic();
+  if (stage === 4) {
+    stopMusic();
+    document.querySelector("#music-button").classList.add("hidden");
+  }
 }
 
 function revealLetter() {
+  const button = document.querySelector("#blow-button");
+  button.disabled = true;
+  stopMusic();
   document.body.classList.add("blackout");
   window.setTimeout(() => {
-    showStage(4);
-    window.setTimeout(() => document.body.classList.remove("blackout"), 120);
+    try {
+      document.querySelector("#stage-3 .stage-heading").classList.add("hidden");
+      document.querySelector(".wish-card").classList.add("hidden");
+      const videoScreen = document.querySelector("#birthday-video-screen");
+      const video = document.querySelector("#birthday-video");
+      videoScreen.classList.remove("hidden");
+      video.currentTime = 0;
+      video.play().catch((error) => {
+        if (error.name === "NotAllowedError") {
+          document.querySelector("#video-message").textContent = "กดเล่นวิดีโอได้เลยนะ ♡";
+          showToast("กดปุ่มเล่นบนวิดีโอเพื่อรับชม");
+          return;
+        }
+        console.error("Unable to play the birthday video.", error);
+        document.querySelector("#video-message").textContent = "เล่นวิดีโอไม่สำเร็จ ลองกดเล่นอีกครั้งนะ";
+        showToast("เล่นวิดีโอไม่สำเร็จ ตรวจสอบไฟล์ video/01.mp4");
+      });
+    } finally {
+      document.body.classList.remove("blackout");
+    }
   }, 800);
 }
+
+document.querySelector("#birthday-video").addEventListener("ended", () => {
+  document.querySelector("#video-message").textContent = "ดูจบแล้ว ไปต่อกันเลยนะ ♡";
+  document.querySelector("#video-continue").classList.remove("hidden");
+});
+
+document.querySelector("#birthday-video").addEventListener("error", () => {
+  const video = document.querySelector("#birthday-video");
+  console.error("Unable to load the birthday video.", video.error);
+  document.querySelector("#video-message").textContent = "โหลดวิดีโอไม่สำเร็จ ลองตรวจสอบไฟล์ video/01.mp4";
+  showToast("โหลดวิดีโอไม่สำเร็จ");
+});
+
+document.querySelector("#video-continue").addEventListener("click", () => {
+  document.querySelector("#birthday-video").pause();
+  showStage(4);
+});
 
 function makeFireworks() {
   const symbols = ["✦", "✧", "♡", "·", "✺"];
@@ -248,7 +290,6 @@ document.querySelector("#open-letter").addEventListener("click", () => {
   window.setTimeout(() => {
     gate.classList.add("hidden");
     document.querySelector("#letter-card").classList.remove("hidden");
-    document.querySelector("#music-player").classList.remove("hidden");
     document.querySelector("#ending-note").classList.remove("hidden");
     document.querySelector("#upload-note").textContent = "เลือกรูปความทรงจำของเราให้ครบ 4 รูปนะ ♡";
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -256,10 +297,27 @@ document.querySelector("#open-letter").addEventListener("click", () => {
 });
 
 function startMusic() {
-  const frame = document.querySelector("#music-frame");
-  frame.src = "https://www.youtube-nocookie.com/embed/ULQVcDUjvM?autoplay=1&list=RDULQVcDUjvM&start_radio=1&controls=0&rel=0";
+  if (musicStopped) return;
+  document.querySelector("#music-fallback").classList.remove("hidden");
 }
 
+function stopMusic() {
+  musicStopped = true;
+  const frame = document.querySelector("#music-frame");
+  frame.contentWindow.postMessage(JSON.stringify({
+    event: "command",
+    func: "stopVideo",
+    args: []
+  }), "https://www.youtube-nocookie.com");
+  frame.removeAttribute("src");
+  document.querySelector("#music-fallback").classList.add("hidden");
+}
+
+document.querySelector("#music-button").addEventListener("click", startMusic);
+document.querySelector("#music-close").addEventListener("click", () => {
+  document.querySelector("#music-fallback").classList.add("hidden");
+});
+document.querySelector("#music-frame").src = "https://www.youtube-nocookie.com/embed/apZ-FtdD4VE?autoplay=1&loop=1&playlist=apZ-FtdD4VE&controls=1&playsinline=1&rel=0";
 updateCandleCount();
 updatePhoto();
 showStage(1);
